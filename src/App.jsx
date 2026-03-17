@@ -1,5 +1,6 @@
 import { ParallaxProvider } from "react-scroll-parallax"
 import Navbar from "./components/Navbar"
+import RainBackground from "./components/RainBackground"
 import Hero from "./components/Hero"
 import About from "./components/About"
 import Skills from "./components/Skills"
@@ -12,6 +13,7 @@ function App() {
   return (
     <ParallaxProvider>
       <main className="bg-black min-h-screen scroll-smooth">
+        <RainBackground />
         <CustomCursor />
         <Navbar />
         <Hero />

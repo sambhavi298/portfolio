@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+html {
+    scroll-behavior: smooth;
+    cursor: none;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+/* Custom glow classes */
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.glow-purple {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}

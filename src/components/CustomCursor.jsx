@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // Helper for random colors
 const randomColors = (count) => {
@@ -9,7 +9,6 @@ const randomColors = (count) => {
 
 export default function CustomCursor() {
     const canvasRef = useRef(null);
-    const [isLoaded, setIsLoaded] = useState(false);
     const tubesRef = useRef(null);
 
     useEffect(() => {
@@ -20,7 +19,6 @@ export default function CustomCursor() {
             if (!canvasRef.current) return;
 
             try {
-                // Using the library from the CDN as requested
                 const module = await import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js');
                 const TubesCursor = module.default;
 
@@ -36,18 +34,25 @@ export default function CustomCursor() {
                     }
                 });
 
-                tubesRef.current = app;
-                setIsLoaded(true);
+                // Configure renderer for transparency
+                if (app.renderer) {
+                    app.renderer.setClearColor(0x000000, 0);
+                }
 
-                const handleResize = () => {
-                    // Library typically handles its own resize if attached to body, 
-                    // but we ensure visibility
+                tubesRef.current = app;
+
+                const handleGlobalClick = () => {
+                    if (!tubesRef.current) return;
+                    const colors = randomColors(3);
+                    const lightsColors = randomColors(4);
+                    tubesRef.current.tubes.setColors(colors);
+                    tubesRef.current.tubes.setLightsColors(lightsColors);
                 };
 
-                window.addEventListener('resize', handleResize);
+                window.addEventListener('click', handleGlobalClick);
 
                 cleanup = () => {
-                    window.removeEventListener('resize', handleResize);
+                    window.removeEventListener('click', handleGlobalClick);
                 };
 
             } catch (error) {
@@ -63,24 +68,11 @@ export default function CustomCursor() {
         };
     }, []);
 
-    const handleClick = () => {
-        if (!tubesRef.current) return;
-
-        const colors = randomColors(3);
-        const lightsColors = randomColors(4);
-
-        tubesRef.current.tubes.setColors(colors);
-        tubesRef.current.tubes.setLightsColors(lightsColors);
-    };
-
     return (
-        <div
-            className="fixed inset-0 w-full h-full pointer-events-none z-[9999]"
-            onClick={handleClick}
-        >
+        <div className="fixed inset-0 w-full h-full pointer-events-none z-[9999]">
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full block pointer-events-auto"
+                className="absolute inset-0 w-full h-full block"
                 style={{ touchAction: 'none' }}
             />
         </div>

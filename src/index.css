@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @config "../tailwind.config.js";
 
 html {
@@ -103,3 +103,4 @@ body {
     transform: scale(0.8);
   }
 }
+

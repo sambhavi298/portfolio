@@ -1,43 +1,88 @@
-import { useEffect, useState } from "react"
-import { motion, useSpring } from "framer-motion"
+import React, { useEffect, useRef, useState } from 'react';
+
+// Helper for random colors
+const randomColors = (count) => {
+    return new Array(count)
+        .fill(0)
+        .map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'));
+};
 
 export default function CustomCursor() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-    const springConfig = { damping: 25, stiffness: 150 }
-    const mouseX = useSpring(0, springConfig)
-    const mouseY = useSpring(0, springConfig)
+    const canvasRef = useRef(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const tubesRef = useRef(null);
 
     useEffect(() => {
-        const handleMouseMove = (e) => {
-            mouseX.set(e.clientX)
-            mouseY.set(e.clientY)
-        }
+        let mounted = true;
+        let cleanup;
 
-        window.addEventListener("mousemove", handleMouseMove)
-        return () => window.removeEventListener("mousemove", handleMouseMove)
-    }, [mouseX, mouseY])
+        const initTubes = async () => {
+            if (!canvasRef.current) return;
+
+            try {
+                // Using the library from the CDN as requested
+                const module = await import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js');
+                const TubesCursor = module.default;
+
+                if (!mounted) return;
+
+                const app = TubesCursor(canvasRef.current, {
+                    tubes: {
+                        colors: ["#53bc28", "#f967fb", "#6958d5"],
+                        lights: {
+                            intensity: 200,
+                            colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+                        }
+                    }
+                });
+
+                tubesRef.current = app;
+                setIsLoaded(true);
+
+                const handleResize = () => {
+                    // Library typically handles its own resize if attached to body, 
+                    // but we ensure visibility
+                };
+
+                window.addEventListener('resize', handleResize);
+
+                cleanup = () => {
+                    window.removeEventListener('resize', handleResize);
+                };
+
+            } catch (error) {
+                console.error("Failed to load TubesCursor:", error);
+            }
+        };
+
+        initTubes();
+
+        return () => {
+            mounted = false;
+            if (cleanup) cleanup();
+        };
+    }, []);
+
+    const handleClick = () => {
+        if (!tubesRef.current) return;
+
+        const colors = randomColors(3);
+        const lightsColors = randomColors(4);
+
+        tubesRef.current.tubes.setColors(colors);
+        tubesRef.current.tubes.setLightsColors(lightsColors);
+    };
 
     return (
-        <>
-            <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full bg-cyan-500/30 border border-cyan-400/50 pointer-events-none z-[9999] blur-sm"
-                style={{
-                    x: mouseX,
-                    y: mouseY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                }}
+        <div
+            className="fixed inset-0 w-full h-full pointer-events-none z-[9999]"
+            onClick={handleClick}
+        >
+            <canvas
+                ref={canvasRef}
+                className="absolute inset-0 w-full h-full block pointer-events-auto"
+                style={{ touchAction: 'none' }}
             />
-            <motion.div
-                className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-[9999]"
-                style={{
-                    x: mouseX,
-                    y: mouseY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                }}
-            />
-        </>
-    )
+        </div>
+    );
 }

@@ -35,7 +35,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="min-h-screen bg-black text-white px-20 py-32 overflow-hidden"
+            className="min-h-screen text-white px-20 py-32 overflow-hidden"
             style={{ perspective: "1000px" }}
         >
 

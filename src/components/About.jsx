@@ -9,7 +9,7 @@ export default function About() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-10 overflow-hidden"
+            className="min-h-screen text-white flex items-center justify-center px-10 overflow-hidden"
         >
 
             <Parallax translateY={[-20, 20]} speed={-10}>

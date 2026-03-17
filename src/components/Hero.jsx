@@ -9,7 +9,6 @@ export default function Hero() {
                 id="tsparticles"
                 className="absolute inset-0 z-0"
                 options={{
-                    background: { color: "#000" },
                     particles: {
                         number: { value: 80 },
                         size: { value: 2 },

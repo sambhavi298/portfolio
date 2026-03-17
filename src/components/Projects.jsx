@@ -24,7 +24,7 @@ export default function Projects() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="min-h-screen bg-gray-900 text-white px-20 py-32 overflow-hidden"
+            className="min-h-screen text-white px-20 py-32 overflow-hidden"
             style={{ perspective: "1200px" }}
         >
 

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion"
 import Particles from "react-tsparticles"
-import Scene3D from "./Scene3D"
 import "./button.css"
 
 export default function Hero() {
@@ -80,9 +79,14 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1.5, delay: 0.8 }}
-                    className="flex-1 w-full max-w-[500px]"
+                    className="flex-1 w-full max-w-[500px] flex items-center justify-center"
                 >
-                    <Scene3D />
+                    <div className="cube">
+                        <div className="cube_item cube_x"></div>
+                        <div className="cube_item cube_y"></div>
+                        <div className="cube_item cube_y"></div>
+                        <div className="cube_item cube_x"></div>
+                    </div>
                 </motion.div>
             </div>
 

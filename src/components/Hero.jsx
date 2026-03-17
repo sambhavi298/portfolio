@@ -32,19 +32,6 @@ export default function Hero() {
                 className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full blur-[160px]"
             ></motion.div>
 
-            <div className="z-10 flex flex-col md:flex-row items-center justify-center gap-12 px-4 max-w-7xl w-full">
-                <div className="text-center md:text-left flex-1">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="text-5xl md:text-8xl font-black mb-6 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
-                    >
-                        Hi, I'm Sam
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.5 }}
                         className="text-lg md:text-2xl text-gray-400 mb-10 font-medium tracking-tight max-w-2xl leading-relaxed"
@@ -72,23 +59,23 @@ export default function Hero() {
                             View Projects
                         </span>
                     </motion.button>
-                </div>
+                </div >
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.5, delay: 0.8 }}
-                    className="flex-1 w-full max-w-[500px] flex items-center justify-center"
-                >
-                    <div className="cube">
-                        <div className="cube_item cube_x"></div>
-                        <div className="cube_item cube_y"></div>
-                        <div className="cube_item cube_y"></div>
-                        <div className="cube_item cube_x"></div>
-                    </div>
-                </motion.div>
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, delay: 0.8 }}
+            className="flex-1 w-full max-w-[500px] flex items-center justify-center"
+        >
+            <div className="cube">
+                <div className="cube_item cube_x"></div>
+                <div className="cube_item cube_y"></div>
+                <div className="cube_item cube_y"></div>
+                <div className="cube_item cube_x"></div>
             </div>
+        </motion.div>
+            </div >
 
-        </section>
+        </section >
     )
 }

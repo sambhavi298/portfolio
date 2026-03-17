@@ -1,6 +1,19 @@
+import { useState } from "react"
 import { motion } from "framer-motion"
 
 export default function Contact() {
+    const [emailLabel, setEmailLabel] = useState("Email Me")
+
+    const links = [
+        { label: "GitHub", href: "https://github.com/sambhavi298" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/sambhavi-ranjan-b313bb347/" },
+        {
+            label: emailLabel,
+            href: "mailto:sambhavi2908@gmail.com",
+            isEmail: true
+        }
+    ]
+
     return (
         <motion.section
             id="contact"
@@ -33,23 +46,27 @@ export default function Contact() {
 
             <div className="flex flex-wrap justify-center gap-6">
 
-                {["GitHub", "LinkedIn", "Email Me"].map((label, index) => (
+                {links.map((link, index) => (
                     <motion.a
-                        key={label}
-                        href="#"
+                        key={link.href}
+                        href={link.href}
+                        target={link.isEmail ? undefined : "_blank"}
+                        rel={link.isEmail ? undefined : "noopener noreferrer"}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                        onMouseEnter={() => link.isEmail && setEmailLabel("sambhavi2908@gmail.com")}
+                        onMouseLeave={() => link.isEmail && setEmailLabel("Email Me")}
                         whileHover={{
                             scale: 1.1,
                             backgroundColor: "rgba(31, 41, 55, 1)",
-                            borderColor: label === "Email Me" ? "rgba(6, 182, 212, 1)" : "rgba(6, 182, 212, 0.5)",
-                            color: label === "Email Me" ? "rgba(6, 182, 212, 1)" : "white"
+                            borderColor: link.isEmail ? "rgba(6, 182, 212, 1)" : "rgba(6, 182, 212, 0.5)",
+                            color: link.isEmail ? "rgba(6, 182, 212, 1)" : "white"
                         }}
-                        className={`px-8 py-4 bg-gray-800 border border-white/10 rounded-xl transition-all duration-300 ${label === "Email Me" ? "text-cyan-400 font-bold" : ""}`}
+                        className={`px-8 py-4 bg-gray-800 border border-white/10 rounded-xl transition-all duration-300 min-w-[160px] text-center ${link.isEmail ? "text-cyan-400 font-bold" : ""}`}
                     >
-                        {label}
+                        {link.label}
                     </motion.a>
                 ))}
 

@@ -5,7 +5,7 @@ import "./button.css"
 
 export default function Hero() {
     return (
-        <section className="h-screen flex flex-col justify-center items-center text-white bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
+        <section className="h-screen flex flex-col justify-center items-center text-white bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden z-10">
             <Particles
                 id="tsparticles"
                 className="absolute inset-0 z-0"

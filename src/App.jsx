@@ -12,7 +12,7 @@ import CustomCursor from "./components/CustomCursor"
 function App() {
   return (
     <ParallaxProvider>
-      <main className="bg-black min-h-screen scroll-smooth">
+      <main className="min-h-screen scroll-smooth">
         <RainBackground />
         <CustomCursor />
         <Navbar />
